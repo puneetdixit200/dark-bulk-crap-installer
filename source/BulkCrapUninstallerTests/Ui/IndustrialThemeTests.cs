@@ -14,9 +14,16 @@ namespace BulkCrapUninstallerTests.Ui
             Assert.AreEqual(Color.FromArgb(5, 10, 16), IndustrialTheme.Backdrop);
             Assert.AreEqual(Color.FromArgb(11, 27, 50), IndustrialTheme.BackdropAccent);
             Assert.AreEqual(Color.FromArgb(255, 107, 0), IndustrialTheme.PrimaryAction);
+            Assert.AreEqual(Color.FromArgb(255, 127, 36), IndustrialTheme.PrimaryActionHot);
             Assert.AreEqual(Color.FromArgb(62, 146, 255), IndustrialTheme.IndustrialBlue);
             Assert.AreEqual(Color.FromArgb(76, 175, 80), IndustrialTheme.Success);
             Assert.AreEqual(Color.FromArgb(255, 77, 77), IndustrialTheme.Critical);
+            Assert.AreEqual(Color.White, IndustrialTheme.TextHigh);
+            Assert.AreEqual(Color.FromArgb(153, 248, 249, 255), IndustrialTheme.TextMuted);
+            Assert.AreEqual(Color.FromArgb(24, 255, 255, 255), IndustrialTheme.ControlFill);
+            Assert.AreEqual(Color.FromArgb(40, 255, 255, 255), IndustrialTheme.ControlFillHot);
+            Assert.AreEqual(Color.FromArgb(12, 255, 255, 255), IndustrialTheme.RowAlternate);
+            Assert.AreEqual(Color.FromArgb(42, 255, 107, 0), IndustrialTheme.RowSelected);
             Assert.AreEqual(8, IndustrialTheme.CornerRadius);
         }
 
@@ -27,6 +34,7 @@ namespace BulkCrapUninstallerTests.Ui
             Assert.AreEqual(Color.FromArgb(166, 22, 32, 44), IndustrialTheme.GlassPrimary);
             Assert.AreEqual(Color.FromArgb(204, 28, 41, 56), IndustrialTheme.GlassElevated);
             Assert.AreEqual(Color.FromArgb(31, 255, 255, 255), IndustrialTheme.GlassEdge);
+            Assert.AreEqual(Color.FromArgb(51, 255, 255, 255), IndustrialTheme.GlassEdgeStrong);
         }
 
         [TestMethod]
