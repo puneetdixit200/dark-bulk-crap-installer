@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Drawing.Text;
 
 namespace BulkCrapUninstaller.Controls.Theming
 {
@@ -11,6 +12,8 @@ namespace BulkCrapUninstaller.Controls.Theming
 
     public static class IndustrialTheme
     {
+        private const string PreferredFontFamilyName = "Hanken Grotesk";
+
         public static readonly Color Backdrop = Color.FromArgb(5, 10, 16);
         public static readonly Color BackdropAccent = Color.FromArgb(11, 27, 50);
         public static readonly Color GlassPrimary = Color.FromArgb(166, 22, 32, 44);
@@ -36,14 +39,19 @@ namespace BulkCrapUninstaller.Controls.Theming
         {
             var fontSize = size ?? fallback.Size;
 
-            try
+            if (IsFontInstalled(PreferredFontFamilyName))
             {
-                return new Font("Hanken Grotesk", fontSize, style);
+                try
+                {
+                    return new Font(PreferredFontFamilyName, fontSize, style);
+                }
+                catch
+                {
+                    return new Font(fallback.FontFamily, fontSize, style);
+                }
             }
-            catch
-            {
-                return new Font(fallback.FontFamily, fontSize, style);
-            }
+
+            return new Font(fallback.FontFamily, fontSize, style);
         }
 
         public static Color GetButtonBackColor(IndustrialActionRole role, bool hot, bool pressed)
@@ -57,6 +65,22 @@ namespace BulkCrapUninstaller.Controls.Theming
                 default:
                     return pressed ? Color.FromArgb(52, 255, 255, 255) : hot ? ControlFillHot : ControlFill;
             }
+        }
+
+        private static bool IsFontInstalled(string fontFamilyName)
+        {
+            using (var fonts = new InstalledFontCollection())
+            {
+                foreach (var family in fonts.Families)
+                {
+                    if (family.Name == fontFamilyName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

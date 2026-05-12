@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Drawing.Text;
 using BulkCrapUninstaller.Controls.Theming;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -34,9 +35,44 @@ namespace BulkCrapUninstallerTests.Ui
             using (var fallback = new Font("Arial", 9f))
             using (var font = IndustrialTheme.CreateUiFont(fallback, FontStyle.Bold, 11f))
             {
+                var expectedFamilyName = IsFontInstalled("Hanken Grotesk") ? "Hanken Grotesk" : fallback.FontFamily.Name;
+
+                Assert.AreEqual(expectedFamilyName, font.FontFamily.Name);
                 Assert.AreEqual(FontStyle.Bold, font.Style);
                 Assert.AreEqual(11f, font.Size, 0.1f);
             }
+        }
+
+        [TestMethod]
+        public void ButtonBackColorsMatchRoleAndInteractionState()
+        {
+            Assert.AreEqual(IndustrialTheme.ControlFill, IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Neutral, false, false));
+            Assert.AreEqual(IndustrialTheme.ControlFillHot, IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Neutral, true, false));
+            Assert.AreEqual(Color.FromArgb(52, 255, 255, 255), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Neutral, true, true));
+
+            Assert.AreEqual(IndustrialTheme.PrimaryAction, IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Primary, false, false));
+            Assert.AreEqual(IndustrialTheme.PrimaryActionHot, IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Primary, true, false));
+            Assert.AreEqual(IndustrialTheme.PrimaryAction, IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Primary, true, true));
+
+            Assert.AreEqual(Color.FromArgb(46, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, false, false));
+            Assert.AreEqual(Color.FromArgb(64, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, true, false));
+            Assert.AreEqual(Color.FromArgb(82, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, true, true));
+        }
+
+        private static bool IsFontInstalled(string fontFamilyName)
+        {
+            using (var fonts = new InstalledFontCollection())
+            {
+                foreach (var family in fonts.Families)
+                {
+                    if (family.Name == fontFamilyName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
