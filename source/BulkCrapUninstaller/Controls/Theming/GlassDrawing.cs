@@ -31,7 +31,6 @@ namespace BulkCrapUninstaller.Controls.Theming
             path.AddArc(arc, 90, 90);
 
             path.CloseFigure();
-            path.Flatten();
             return path;
         }
 
@@ -41,9 +40,17 @@ namespace BulkCrapUninstaller.Controls.Theming
             using (var fillBrush = new SolidBrush(fill))
             using (var edgePen = new Pen(edge))
             {
+                var previousSmoothingMode = graphics.SmoothingMode;
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.FillPath(fillBrush, path);
-                graphics.DrawPath(edgePen, path);
+                try
+                {
+                    graphics.FillPath(fillBrush, path);
+                    graphics.DrawPath(edgePen, path);
+                }
+                finally
+                {
+                    graphics.SmoothingMode = previousSmoothingMode;
+                }
             }
         }
 
@@ -57,10 +64,18 @@ namespace BulkCrapUninstaller.Controls.Theming
             using (var sheenBrush = new LinearGradientBrush(bounds, top, Color.Transparent, LinearGradientMode.Vertical))
             using (var edgePen = new Pen(edge))
             {
+                var previousSmoothingMode = graphics.SmoothingMode;
                 graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.FillPath(baseBrush, path);
-                graphics.FillPath(sheenBrush, path);
-                graphics.DrawPath(edgePen, path);
+                try
+                {
+                    graphics.FillPath(baseBrush, path);
+                    graphics.FillPath(sheenBrush, path);
+                    graphics.DrawPath(edgePen, path);
+                }
+                finally
+                {
+                    graphics.SmoothingMode = previousSmoothingMode;
+                }
             }
         }
     }
