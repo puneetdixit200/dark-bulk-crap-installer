@@ -4,6 +4,7 @@
 */
 
 using BrightIdeasSoftware;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Functions;
 using BulkCrapUninstaller.Functions.ApplicationList;
 using BulkCrapUninstaller.Functions.Tools;
@@ -86,10 +87,7 @@ namespace BulkCrapUninstaller.Forms
 
             // Finish up setting controls and window, suspend after settings have loaded
             SuspendLayout();
-            ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new StandardSystemColorTable())
-            {
-                RoundedEdges = true
-            };
+            ToolStripManager.Renderer = new IndustrialToolStripRenderer();
 
             // Disable until the first list refresh finishes
             LockApplication(true);
