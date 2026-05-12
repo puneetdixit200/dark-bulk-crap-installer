@@ -84,6 +84,11 @@ git commit -m "Document baseline UI refresh verification"
 
 Expected: no commit if restore and tests already pass.
 
+**Baseline Notes (2026-05-13):**
+
+- Restore command failed before UI edits with exit code `1`: several legacy projects report `MSB4057: The target "Restore" does not exist in the project`.
+- Test command failed before UI edits with exit code `1`: `source/BulkCrapUninstallerTests/BulkCrapUninstallerTests.csproj` could not resolve SDK `Microsoft.NET.Sdk` from the Visual Studio MSBuild SDK path.
+
 ---
 
 ### Task 2: Theme Constants And Palette Tests
