@@ -67,6 +67,28 @@ namespace BulkCrapUninstallerTests.Ui
             Assert.AreEqual(Color.FromArgb(82, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, true, true));
         }
 
+        [TestMethod]
+        public void ButtonRoleMappingClassifiesDangerNames()
+        {
+            Assert.AreEqual(IndustrialActionRole.Danger, IndustrialStyleManager.GetButtonRole("buttonDelete", "Delete"));
+            Assert.AreEqual(IndustrialActionRole.Danger, IndustrialStyleManager.GetButtonRole("deleteToolStripMenuItem", "Delete entry"));
+        }
+
+        [TestMethod]
+        public void ButtonRoleMappingClassifiesPrimaryNames()
+        {
+            Assert.AreEqual(IndustrialActionRole.Primary, IndustrialStyleManager.GetButtonRole("buttonNext", "Next"));
+            Assert.AreEqual(IndustrialActionRole.Primary, IndustrialStyleManager.GetButtonRole("toolStripButtonUninstall", "Uninstall"));
+            Assert.AreEqual(IndustrialActionRole.Primary, IndustrialStyleManager.GetButtonRole("buttonFinish", "Finish"));
+        }
+
+        [TestMethod]
+        public void ButtonRoleMappingDefaultsToNeutral()
+        {
+            Assert.AreEqual(IndustrialActionRole.Neutral, IndustrialStyleManager.GetButtonRole("buttonCancel", "Cancel"));
+            Assert.AreEqual(IndustrialActionRole.Neutral, IndustrialStyleManager.GetButtonRole("buttonProperties", "Properties"));
+        }
+
         private static bool IsFontInstalled(string fontFamilyName)
         {
             using (var fonts = new InstalledFontCollection())
