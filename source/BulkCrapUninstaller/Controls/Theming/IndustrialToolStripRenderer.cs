@@ -80,18 +80,25 @@ namespace BulkCrapUninstaller.Controls.Theming
             using (var pen = new Pen(IndustrialTheme.GlassEdge))
             {
                 if (e.Vertical)
-                    e.Graphics.DrawLine(pen, e.Item.Width / 2, 3, e.Item.Width / 2, e.Item.Height - 4);
+                {
+                    var x = e.Item.Width / 2;
+                    e.Graphics.DrawLine(pen, x, 4, x, e.Item.Height - 4);
+                }
                 else
-                    e.Graphics.DrawLine(pen, 3, e.Item.Height / 2, e.Item.Width - 4, e.Item.Height / 2);
+                {
+                    e.Graphics.DrawLine(pen, 4, e.Item.Height / 2, e.Item.Width - 4, e.Item.Height / 2);
+                }
             }
         }
 
         private static IndustrialActionRole GetRole(ToolStripItem item)
         {
-            if (item.Name.Contains("Uninstall") || item.Name.Contains("Continue") || item.Name.Contains("Next"))
+            var name = item.Name ?? string.Empty;
+
+            if (name.Contains("Uninstall") || name.Contains("Continue") || name.Contains("Next"))
                 return IndustrialActionRole.Primary;
 
-            if (item.Name.Contains("Delete"))
+            if (name.Contains("Delete"))
                 return IndustrialActionRole.Danger;
 
             return IndustrialActionRole.Neutral;
