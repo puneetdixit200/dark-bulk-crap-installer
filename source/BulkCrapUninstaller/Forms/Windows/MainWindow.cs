@@ -167,6 +167,8 @@ namespace BulkCrapUninstaller.Forms
             Console.WriteLine(MainTitleBarText);
 
             _styleController = new WindowStyleController(this);
+            IndustrialStyleManager.Apply(this);
+            IndustrialStyleManager.ApplyObjectListView(uninstallerObjectListView);
 
             // Initialize the status bar
             toolStripLabelStatus_TextChanged(this, EventArgs.Empty);

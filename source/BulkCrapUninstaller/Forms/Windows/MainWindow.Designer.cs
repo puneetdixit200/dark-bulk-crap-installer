@@ -287,7 +287,7 @@ namespace BulkCrapUninstaller.Forms
             // 
             // listViewPanel
             // 
-            listViewPanel.BorderStyle = BorderStyle.FixedSingle;
+            listViewPanel.BorderStyle = BorderStyle.None;
             listViewPanel.Controls.Add(uninstallerObjectListView);
             resources.ApplyResources(listViewPanel, "listViewPanel");
             listViewPanel.Name = "listViewPanel";
