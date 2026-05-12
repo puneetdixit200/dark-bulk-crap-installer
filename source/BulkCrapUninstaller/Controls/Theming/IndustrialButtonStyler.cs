@@ -87,11 +87,13 @@ namespace BulkCrapUninstaller.Controls.Theming
             var pressed = hot && (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left;
             var role = GetRole(button);
             var fill = IndustrialTheme.GetButtonBackColor(role, hot, pressed);
-            var edge = button.Focused ? IndustrialTheme.IndustrialBlue : IndustrialTheme.GlassEdgeStrong;
+            var edge = button.Focused
+                ? Color.FromArgb(180, IndustrialTheme.IndustrialBlue)
+                : IndustrialTheme.GlassEdgeStrong;
 
             GlassDrawing.FillRoundedRectangle(e.Graphics, bounds, fill, edge, IndustrialTheme.CornerRadius);
 
-            var textColor = button.Enabled ? IndustrialTheme.TextHigh : IndustrialTheme.TextMuted;
+            var textColor = button.Enabled ? button.ForeColor : IndustrialTheme.TextMuted;
             TextRenderer.DrawText(
                 e.Graphics,
                 button.Text,

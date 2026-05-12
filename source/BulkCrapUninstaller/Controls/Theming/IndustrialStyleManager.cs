@@ -141,27 +141,33 @@ namespace BulkCrapUninstaller.Controls.Theming
                 return;
             }
 
-            if (control is TabPage)
+            var tabPage = control as TabPage;
+            if (tabPage != null)
             {
-                control.BackColor = IndustrialTheme.Backdrop;
+                tabPage.BackColor = IndustrialTheme.Backdrop;
+                tabPage.ForeColor = IndustrialTheme.TextHigh;
+                tabPage.UseVisualStyleBackColor = false;
                 return;
             }
 
-            if (control is SplitContainer)
+            var splitContainer = control as SplitContainer;
+            if (splitContainer != null)
             {
-                control.BackColor = IndustrialTheme.Backdrop;
+                splitContainer.BackColor = IndustrialTheme.Backdrop;
+                splitContainer.Panel1.BackColor = IndustrialTheme.Backdrop;
+                splitContainer.Panel2.BackColor = IndustrialTheme.Backdrop;
                 return;
             }
 
             if (control is GroupBox)
             {
-                control.BackColor = Color.Transparent;
+                control.BackColor = IndustrialTheme.GlassPrimary;
                 return;
             }
 
             if (control is Panel || control is FlowLayoutPanel || control is TableLayoutPanel)
             {
-                control.BackColor = IndustrialTheme.Backdrop;
+                control.BackColor = IndustrialTheme.GlassPrimary;
                 return;
             }
 
