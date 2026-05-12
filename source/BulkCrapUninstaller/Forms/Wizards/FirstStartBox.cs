@@ -7,6 +7,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Functions;
 using BulkCrapUninstaller.Properties;
 using Klocman.Binding.Settings;
@@ -25,6 +26,7 @@ namespace BulkCrapUninstaller.Forms
         public FirstStartBox(bool canExit)
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             if (DesignMode) return;
 

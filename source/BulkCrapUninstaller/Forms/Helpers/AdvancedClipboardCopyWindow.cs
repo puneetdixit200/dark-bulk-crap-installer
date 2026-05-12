@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Functions;
 using Klocman.Forms.Tools;
 using UninstallTools;
@@ -17,6 +18,7 @@ namespace BulkCrapUninstaller.Forms
         private AdvancedClipboardCopyWindow()
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
         }
 
         public static void ShowDialog(Form parent, IEnumerable<ApplicationUninstallerEntry> targets)

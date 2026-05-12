@@ -5,6 +5,7 @@
 
 using System;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Properties;
 
 namespace BulkCrapUninstaller.Forms
@@ -32,6 +33,7 @@ namespace BulkCrapUninstaller.Forms
         private FeedbackBox()
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             if (DesignMode) return;
 

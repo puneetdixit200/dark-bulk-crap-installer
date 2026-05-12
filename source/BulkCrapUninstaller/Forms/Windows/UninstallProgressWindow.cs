@@ -12,6 +12,7 @@ using System.Linq;
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Functions;
 using BulkCrapUninstaller.Properties;
 using Klocman.Binding.Settings;
@@ -63,6 +64,7 @@ namespace BulkCrapUninstaller.Forms
         private UninstallProgressWindow()
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             Text += " - Bulk Crap Uninstaller";
 

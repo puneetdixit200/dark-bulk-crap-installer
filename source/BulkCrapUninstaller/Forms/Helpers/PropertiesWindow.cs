@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Functions;
 using BulkCrapUninstaller.Properties;
 using Klocman.Extensions;
@@ -25,6 +26,7 @@ namespace BulkCrapUninstaller.Forms
         public PropertiesWindow()
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             Icon = Resources.Icon_Logo;
 

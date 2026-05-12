@@ -7,6 +7,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Controls;
 using Klocman.Extensions;
 
@@ -19,6 +20,7 @@ namespace BulkCrapUninstaller.Forms
         public ListLegendWindow()
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             listLegend1.CloseRequested += (sender, args) =>
             {

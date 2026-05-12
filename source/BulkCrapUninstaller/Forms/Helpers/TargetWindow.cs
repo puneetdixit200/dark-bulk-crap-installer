@@ -3,6 +3,7 @@
     Apache License Version 2.0
 */
 
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Controls;
 using BulkCrapUninstaller.Properties;
 using Klocman.Extensions;
@@ -26,6 +27,7 @@ namespace BulkCrapUninstaller.Forms
         public TargetWindow()
         {
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             fileTargeter1.DirectoriesSelected += DirectoryTargeterDirectoriesSelected;
             windowTargeter1.PickingStarted += WindowTargeter1OnPickingStarted;

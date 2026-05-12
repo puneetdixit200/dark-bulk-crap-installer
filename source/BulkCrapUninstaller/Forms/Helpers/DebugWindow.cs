@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Functions;
 using BulkCrapUninstaller.Functions.ApplicationList;
 using BulkCrapUninstaller.Functions.Tracking;
@@ -33,6 +34,7 @@ namespace BulkCrapUninstaller.Forms
             _appUninstaller = appUninstaller;
 
             InitializeComponent();
+            IndustrialStyleManager.Apply(this);
 
             if (DesignMode) return;
 
