@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 using Klocman.Extensions;
+using SimpleTreeMap;
 
 namespace BulkCrapUninstaller.Controls.Theming
 {
@@ -19,6 +20,7 @@ namespace BulkCrapUninstaller.Controls.Theming
                 form.BackColor = IndustrialTheme.Backdrop;
                 form.ForeColor = IndustrialTheme.TextHigh;
                 form.Font = IndustrialTheme.CreateUiFont(form.Font);
+                NativeWindowTheme.EnableDarkTitleBar(form);
 
                 ToolStripManager.Renderer = new IndustrialToolStripRenderer();
 
@@ -118,11 +120,19 @@ namespace BulkCrapUninstaller.Controls.Theming
                 return;
 
             control.ForeColor = IndustrialTheme.TextHigh;
+            ApplyDarkScrollableTheme(control);
 
             var listView = control as ObjectListView;
             if (listView != null)
             {
                 ApplyObjectListView(listView);
+                return;
+            }
+
+            var treeMap = control as TreeMap;
+            if (treeMap != null)
+            {
+                ApplyTreeMap(treeMap);
                 return;
             }
 
@@ -190,6 +200,23 @@ namespace BulkCrapUninstaller.Controls.Theming
 
             if (control.BackColor == SystemColors.Control || control.BackColor == SystemColors.ControlLightLight)
                 control.BackColor = IndustrialTheme.Backdrop;
+        }
+
+        private static void ApplyDarkScrollableTheme(Control control)
+        {
+            if (control is ScrollableControl || control is ListView || control is TreeView || control is ListBox || control is ComboBox)
+                NativeWindowTheme.EnableDarkScrollbars(control);
+        }
+
+        public static void ApplyTreeMap(TreeMap treeMap)
+        {
+            if (treeMap == null)
+                return;
+
+            treeMap.BackColor = IndustrialTheme.StorageMapBack;
+            treeMap.ForeColor = IndustrialTheme.TextHigh;
+            treeMap.CellBorderColor = IndustrialTheme.StorageMapBack;
+            treeMap.SelectedBackColor = IndustrialTheme.StorageMapSelected;
         }
     }
 }

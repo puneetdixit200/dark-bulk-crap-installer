@@ -34,6 +34,8 @@ namespace BulkCrapUninstaller.Controls.Theming
         public static readonly Color RowAlternate = Color.FromArgb(12, 255, 255, 255);
         public static readonly Color RowSelected = Color.FromArgb(255, 176, 74);
         public static readonly Color RowSelectedText = Color.Black;
+        public static readonly Color StorageMapBack = Color.FromArgb(8, 17, 31);
+        public static readonly Color StorageMapSelected = RowSelected;
         public static readonly Color GlassPrimarySolid = BlendOverBackdrop(GlassPrimary);
         public static readonly Color GlassElevatedSolid = BlendOverBackdrop(GlassElevated);
         public static readonly Color ControlFillSolid = BlendOverBackdrop(ControlFill);
@@ -80,6 +82,14 @@ namespace BulkCrapUninstaller.Controls.Theming
                 return color;
 
             return Blend(color, Backdrop);
+        }
+
+        public static Color GetStorageMapColor(Color color)
+        {
+            if (color.IsEmpty)
+                return GlassElevatedSolid;
+
+            return Blend(Color.FromArgb(76, color), BackdropAccent);
         }
 
         private static Color Blend(Color foreground, Color background)

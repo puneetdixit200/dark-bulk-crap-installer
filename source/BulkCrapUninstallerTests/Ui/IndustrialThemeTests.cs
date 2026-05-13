@@ -3,6 +3,7 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using BulkCrapUninstaller.Controls.Theming;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SimpleTreeMap;
 
 namespace BulkCrapUninstallerTests.Ui
 {
@@ -26,6 +27,8 @@ namespace BulkCrapUninstallerTests.Ui
             Assert.AreEqual(Color.FromArgb(12, 255, 255, 255), IndustrialTheme.RowAlternate);
             Assert.AreEqual(Color.FromArgb(255, 176, 74), IndustrialTheme.RowSelected);
             Assert.AreEqual(Color.Black, IndustrialTheme.RowSelectedText);
+            Assert.AreEqual(Color.FromArgb(8, 17, 31), IndustrialTheme.StorageMapBack);
+            Assert.AreEqual(Color.FromArgb(255, 176, 74), IndustrialTheme.StorageMapSelected);
             Assert.AreEqual(8, IndustrialTheme.CornerRadius);
         }
 
@@ -120,6 +123,42 @@ namespace BulkCrapUninstallerTests.Ui
                 Assert.AreEqual(IndustrialTheme.TextMuted, linkLabel.VisitedLinkColor);
                 Assert.AreEqual(IndustrialTheme.TextMuted, linkLabel.DisabledLinkColor);
             }
+        }
+
+        [TestMethod]
+        public void StorageMapColorsStayDarkAgainstTheGlassShell()
+        {
+            var lightSource = Color.FromArgb(235, 248, 235);
+            var darkened = IndustrialTheme.GetStorageMapColor(lightSource);
+
+            Assert.IsTrue(darkened.R < 100);
+            Assert.IsTrue(darkened.G < 120);
+            Assert.IsTrue(darkened.B < 130);
+            Assert.AreEqual(255, darkened.A);
+        }
+
+        [TestMethod]
+        public void TreeMapReceivesIndustrialStorageStyling()
+        {
+            using (var form = new Form())
+            using (var treeMap = new TreeMap())
+            {
+                form.Controls.Add(treeMap);
+
+                IndustrialStyleManager.Apply(form);
+
+                Assert.AreEqual(IndustrialTheme.StorageMapBack, treeMap.BackColor);
+                Assert.AreEqual(IndustrialTheme.StorageMapBack, treeMap.CellBorderColor);
+                Assert.AreEqual(IndustrialTheme.StorageMapSelected, treeMap.SelectedBackColor);
+            }
+        }
+
+        [TestMethod]
+        public void NativeDarkThemeHelpersAreSafeBeforeHandleCreation()
+        {
+            Assert.AreEqual("DarkMode_Explorer", NativeWindowTheme.DarkScrollbarThemeName);
+            Assert.IsFalse(NativeWindowTheme.TryApplyDarkTitleBar(System.IntPtr.Zero));
+            Assert.IsFalse(NativeWindowTheme.TryApplyDarkScrollbars(System.IntPtr.Zero));
         }
 
         [TestMethod]

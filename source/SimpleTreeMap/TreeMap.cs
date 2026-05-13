@@ -53,7 +53,8 @@ namespace SimpleTreeMap
         private List<SliceRectangle<object>> _rectangles;
         private HashSet<object> _selectedObjects;
         private SliceRectangle<object> _currentHoveredRectangle;
-        private static readonly SolidBrush SelectedRectBrush = new(Color.DodgerBlue);
+        private Color _cellBorderColor = Color.Black;
+        private Color _selectedBackColor = Color.DodgerBlue;
         readonly Dictionary<Color, Brush> _brushCache = new();
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -73,6 +74,28 @@ namespace SimpleTreeMap
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool UseLogValueScaling { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public Color CellBorderColor
+        {
+            get { return _cellBorderColor; }
+            set
+            {
+                _cellBorderColor = value;
+                Invalidate();
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public Color SelectedBackColor
+        {
+            get { return _selectedBackColor; }
+            set
+            {
+                _selectedBackColor = value;
+                Invalidate();
+            }
+        }
 
         public TreeMap()
         {
@@ -169,27 +192,31 @@ namespace SimpleTreeMap
             //var font = new Font("Arial", 8);
             var gfx = e.Graphics;
 
-            gfx.FillRectangle(new SolidBrush(Color.Black), ClientRectangle);
-
-            if (_rectangles == null)
+            using (var backgroundBrush = new SolidBrush(CellBorderColor.IsEmpty ? BackColor : CellBorderColor))
+            using (var selectedBrush = new SolidBrush(SelectedBackColor))
             {
-                if (DesignMode)
-                    PopulateWithDemoData();
-                return;
-            }
+                gfx.FillRectangle(backgroundBrush, ClientRectangle);
 
-            foreach (var r in _rectangles)
-            {
-                if (r.PaintRect.IsEmpty)
-                    continue;
+                if (_rectangles == null)
+                {
+                    if (DesignMode)
+                        PopulateWithDemoData();
+                    return;
+                }
 
-                if (_selectedObjects != null && r.Slice.Elements.Any(x => _selectedObjects.Contains(x.Object)))
-                    gfx.FillRectangle(SelectedRectBrush, r.PaintRect);
-                else
-                    gfx.FillRectangle(_brushCache[r.Slice.Elements.First().Color], r.PaintRect);
+                foreach (var r in _rectangles)
+                {
+                    if (r.PaintRect.IsEmpty)
+                        continue;
 
-                //gfx.DrawString(r.Slice.Elements.First().Object.ToString(), font,
-                //    new SolidBrush(Control.DefaultForeColor), r.X, r.Y);
+                    if (_selectedObjects != null && r.Slice.Elements.Any(x => _selectedObjects.Contains(x.Object)))
+                        gfx.FillRectangle(selectedBrush, r.PaintRect);
+                    else
+                        gfx.FillRectangle(_brushCache[r.Slice.Elements.First().Color], r.PaintRect);
+
+                    //gfx.DrawString(r.Slice.Elements.First().Object.ToString(), font,
+                    //    new SolidBrush(Control.DefaultForeColor), r.X, r.Y);
+                }
             }
         }
 
