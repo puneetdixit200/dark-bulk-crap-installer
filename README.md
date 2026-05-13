@@ -7,6 +7,11 @@
 # Bulk Crap Uninstaller
 Bulk Crap Uninstaller (or BCUninstaller) is a free (as in speech) program uninstaller. It excels at removing large amounts of applications with minimal user input. It can clean up leftovers, detect orphaned applications, run uninstallers according to premade lists, and much more! Even though BCU was made with IT pros in mind, it can be used by anyone with a basic understanding of how applications are installed/uninstalled in Windows.
 
+## Dark industrial UI fork
+This fork keeps the original BCU behavior and updates only the WinForms presentation layer with a dark industrial glass theme. The current UI pass includes dark window chrome, white toolbar/menu text and icons, dark scrollbars where Windows exposes them, a darker storage treemap, themed startup/loading/welcome screens, and improved selected-row contrast.
+
+See [Dark Industrial UI Notes](docs/dark-industrial-ui.md) for scope, build commands, and verification notes.
+
 BCU is fully compatible with Windows Store Apps, Steam, Windows Features and has special support for many uninstalling systems (NSIS, InnoSetup, Msiexec, and many other). Check below for a full list of functions.
 
 Bulk Crap Uninstaller is licensed under Apache 2.0 open source license, and can be used in both private and commercial settings for free and with no obligations, as long as no conditions of the license are broken.

@@ -162,6 +162,46 @@ namespace BulkCrapUninstallerTests.Ui
         }
 
         [TestMethod]
+        public void ToolStripItemsStayWhiteEvenWhenDisabled()
+        {
+            using (var form = new Form())
+            using (var menuStrip = new MenuStrip())
+            {
+                var disabledMenu = new ToolStripMenuItem("Basic operations") { Enabled = false };
+                menuStrip.Items.Add(disabledMenu);
+                form.Controls.Add(menuStrip);
+
+                IndustrialStyleManager.Apply(form);
+
+                Assert.AreEqual(IndustrialTheme.TextHigh, disabledMenu.ForeColor);
+            }
+        }
+
+        [TestMethod]
+        public void ToolStripImagesAreTintedWhiteForDarkToolbar()
+        {
+            using (var form = new Form())
+            using (var toolStrip = new ToolStrip())
+            using (var sourceImage = new Bitmap(2, 1))
+            {
+                sourceImage.SetPixel(0, 0, Color.Black);
+                sourceImage.SetPixel(1, 0, Color.Transparent);
+
+                var button = new ToolStripButton("Reload") { Image = sourceImage };
+                toolStrip.Items.Add(button);
+                form.Controls.Add(toolStrip);
+
+                IndustrialStyleManager.Apply(form);
+
+                using (var tinted = new Bitmap(button.Image))
+                {
+                    Assert.AreEqual(Color.FromArgb(255, 255, 255, 255), tinted.GetPixel(0, 0));
+                    Assert.AreEqual(0, tinted.GetPixel(1, 0).A);
+                }
+            }
+        }
+
+        [TestMethod]
         public void ButtonRoleMappingClassifiesDangerNames()
         {
             Assert.AreEqual(IndustrialActionRole.Danger, IndustrialStyleManager.GetButtonRole("buttonDelete", "Delete"));

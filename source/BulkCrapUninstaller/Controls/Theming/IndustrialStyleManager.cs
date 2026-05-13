@@ -96,6 +96,11 @@ namespace BulkCrapUninstaller.Controls.Theming
             if (toolStrip == null)
                 return;
 
+            ApplyToolStrip(toolStrip);
+        }
+
+        private static void ApplyToolStrip(ToolStrip toolStrip)
+        {
             toolStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
             toolStrip.BackColor = IndustrialTheme.GlassPrimarySolid;
             toolStrip.ForeColor = IndustrialTheme.TextHigh;
@@ -106,12 +111,35 @@ namespace BulkCrapUninstaller.Controls.Theming
         {
             foreach (ToolStripItem item in items)
             {
-                item.ForeColor = item.Enabled ? IndustrialTheme.TextHigh : IndustrialTheme.TextMuted;
+                item.ForeColor = IndustrialTheme.TextHigh;
+                item.Image = CreateWhiteToolStripImage(item.Image);
 
                 var dropDownItem = item as ToolStripDropDownItem;
                 if (dropDownItem != null)
                     ApplyToolStripItems(dropDownItem.DropDownItems);
             }
+        }
+
+        private static Image CreateWhiteToolStripImage(Image source)
+        {
+            if (source == null)
+                return null;
+
+            var result = new Bitmap(source.Width, source.Height);
+
+            using (var sourceBitmap = new Bitmap(source))
+            {
+                for (var x = 0; x < source.Width; x++)
+                {
+                    for (var y = 0; y < source.Height; y++)
+                    {
+                        var pixel = sourceBitmap.GetPixel(x, y);
+                        result.SetPixel(x, y, Color.FromArgb(pixel.A, IndustrialTheme.TextHigh));
+                    }
+                }
+            }
+
+            return result;
         }
 
         private static void ApplyControl(Control control)
@@ -121,6 +149,13 @@ namespace BulkCrapUninstaller.Controls.Theming
 
             control.ForeColor = IndustrialTheme.TextHigh;
             ApplyDarkScrollableTheme(control);
+
+            var toolStrip = control as ToolStrip;
+            if (toolStrip != null)
+            {
+                ApplyToolStrip(toolStrip);
+                return;
+            }
 
             var listView = control as ObjectListView;
             if (listView != null)

@@ -71,7 +71,7 @@ namespace BulkCrapUninstaller.Controls.Theming
 
         protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
         {
-            e.TextColor = e.Item.Enabled ? IndustrialTheme.TextHigh : IndustrialTheme.TextMuted;
+            e.TextColor = IndustrialTheme.TextHigh;
             base.OnRenderItemText(e);
         }
 
