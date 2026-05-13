@@ -41,6 +41,41 @@ The runnable EXE is written to:
 bin\publish\win-x64\BCUninstaller.exe
 ```
 
+## Setup Installer
+
+The checked-in setup installer is built from the light Inno Setup script. It packages the AnyCPU app output and lets the installer fetch .NET 8 on machines where the runtime is missing.
+
+Publish the installer input folder with:
+
+```powershell
+$targets = (Resolve-Path .tools\GeneratedInterop.targets).Path
+$publishAny = (Resolve-Path .).Path + "\bin\publish-AnyCPU-net8.0\"
+.\.tools\dotnet\dotnet.exe publish source\BulkCrapUninstaller\BulkCrapUninstaller.csproj `
+  -c Release `
+  -p:Platform="Any CPU" `
+  -p:UseGeneratedInterop=true `
+  -p:DirectoryBuildTargetsPath="$targets" `
+  -p:filealignment=512 `
+  -p:PublishSingleFile=False `
+  -p:SelfContained=False `
+  -p:PublishReadyToRun=false `
+  -p:PublishTrimmed=False `
+  -p:PublishDir="$publishAny" `
+  -v:minimal
+```
+
+Compile the installer with Inno Setup 6.4.3 or newer from the [official Inno Setup downloads](https://jrsoftware.org/isdl.php):
+
+```powershell
+ISCC.exe installer\BcuSetup.iss
+```
+
+The setup EXE is written to:
+
+```text
+installer\Output\BCUninstaller_6.1.0_setup.exe
+```
+
 ## Verification
 
 The focused UI regression suite is:
