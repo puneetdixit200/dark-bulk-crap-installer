@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Drawing.Text;
+using System.Windows.Forms;
 using BulkCrapUninstaller.Controls.Theming;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -38,6 +39,16 @@ namespace BulkCrapUninstallerTests.Ui
         }
 
         [TestMethod]
+        public void SolidControlBackColorsAreOpaque()
+        {
+            Assert.AreEqual(255, IndustrialTheme.GlassPrimarySolid.A);
+            Assert.AreEqual(255, IndustrialTheme.GlassElevatedSolid.A);
+            Assert.AreEqual(255, IndustrialTheme.ControlFillSolid.A);
+            Assert.AreEqual(255, IndustrialTheme.ControlFillHotSolid.A);
+            Assert.AreEqual(255, IndustrialTheme.BlendOverBackdrop(Color.FromArgb(64, Color.White)).A);
+        }
+
+        [TestMethod]
         public void PreferredFontFallsBackToExistingFont()
         {
             using (var fallback = new Font("Arial", 9f))
@@ -65,6 +76,19 @@ namespace BulkCrapUninstallerTests.Ui
             Assert.AreEqual(Color.FromArgb(46, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, false, false));
             Assert.AreEqual(Color.FromArgb(64, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, true, false));
             Assert.AreEqual(Color.FromArgb(82, IndustrialTheme.Critical), IndustrialTheme.GetButtonBackColor(IndustrialActionRole.Danger, true, true));
+        }
+
+        [TestMethod]
+        public void ButtonStylerUsesSupportedWinFormsBackColor()
+        {
+            using (var button = new Button { Name = "buttonNext", Text = "Next", Size = new Size(120, 32) })
+            {
+                IndustrialButtonStyler.Apply(button, IndustrialActionRole.Primary);
+
+                Assert.AreNotEqual(Color.Transparent, button.BackColor);
+                Assert.AreEqual(FlatStyle.Flat, button.FlatStyle);
+                Assert.AreEqual(0, button.FlatAppearance.BorderSize);
+            }
         }
 
         [TestMethod]

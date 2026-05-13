@@ -85,7 +85,7 @@ namespace BulkCrapUninstaller.Controls.Theming
                 return;
 
             toolStrip.RenderMode = ToolStripRenderMode.ManagerRenderMode;
-            toolStrip.BackColor = IndustrialTheme.GlassPrimary;
+            toolStrip.BackColor = IndustrialTheme.GlassPrimarySolid;
             toolStrip.ForeColor = IndustrialTheme.TextHigh;
             ApplyToolStripItems(toolStrip.Items);
         }
@@ -126,7 +126,7 @@ namespace BulkCrapUninstaller.Controls.Theming
             var textBoxBase = control as TextBoxBase;
             if (textBoxBase != null)
             {
-                textBoxBase.BackColor = IndustrialTheme.GlassElevated;
+                textBoxBase.BackColor = IndustrialTheme.GlassElevatedSolid;
                 textBoxBase.ForeColor = IndustrialTheme.TextHigh;
                 textBoxBase.BorderStyle = BorderStyle.FixedSingle;
                 return;
@@ -135,7 +135,7 @@ namespace BulkCrapUninstaller.Controls.Theming
             var comboBox = control as ComboBox;
             if (comboBox != null)
             {
-                comboBox.BackColor = IndustrialTheme.GlassElevated;
+                comboBox.BackColor = IndustrialTheme.GlassElevatedSolid;
                 comboBox.ForeColor = IndustrialTheme.TextHigh;
                 comboBox.FlatStyle = FlatStyle.Flat;
                 return;
@@ -161,13 +161,13 @@ namespace BulkCrapUninstaller.Controls.Theming
 
             if (control is GroupBox)
             {
-                control.BackColor = IndustrialTheme.GlassPrimary;
+                control.BackColor = IndustrialTheme.GlassPrimarySolid;
                 return;
             }
 
             if (control is Panel || control is FlowLayoutPanel || control is TableLayoutPanel)
             {
-                control.BackColor = IndustrialTheme.GlassPrimary;
+                control.BackColor = IndustrialTheme.GlassPrimarySolid;
                 return;
             }
 

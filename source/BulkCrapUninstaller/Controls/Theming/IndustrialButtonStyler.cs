@@ -23,11 +23,11 @@ namespace BulkCrapUninstaller.Controls.Theming
 
             button.UseVisualStyleBackColor = false;
             button.FlatStyle = FlatStyle.Flat;
-            button.BackColor = Color.Transparent;
+            button.BackColor = IndustrialTheme.BlendOverBackdrop(IndustrialTheme.GetButtonBackColor(role, false, false));
             button.ForeColor = IndustrialTheme.TextHigh;
             button.FlatAppearance.BorderSize = 0;
-            button.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            button.FlatAppearance.MouseDownBackColor = IndustrialTheme.BlendOverBackdrop(IndustrialTheme.GetButtonBackColor(role, true, true));
+            button.FlatAppearance.MouseOverBackColor = IndustrialTheme.BlendOverBackdrop(IndustrialTheme.GetButtonBackColor(role, true, false));
 
             button.Paint -= PaintButton;
             button.Paint += PaintButton;

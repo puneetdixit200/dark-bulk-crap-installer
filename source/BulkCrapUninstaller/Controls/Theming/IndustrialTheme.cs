@@ -31,6 +31,10 @@ namespace BulkCrapUninstaller.Controls.Theming
         public static readonly Color ControlFillHot = Color.FromArgb(40, 255, 255, 255);
         public static readonly Color RowAlternate = Color.FromArgb(12, 255, 255, 255);
         public static readonly Color RowSelected = Color.FromArgb(42, 255, 107, 0);
+        public static readonly Color GlassPrimarySolid = BlendOverBackdrop(GlassPrimary);
+        public static readonly Color GlassElevatedSolid = BlendOverBackdrop(GlassElevated);
+        public static readonly Color ControlFillSolid = BlendOverBackdrop(ControlFill);
+        public static readonly Color ControlFillHotSolid = BlendOverBackdrop(ControlFillHot);
 
         public const int CornerRadius = 8;
         public const int FocusGlowWidth = 4;
@@ -65,6 +69,25 @@ namespace BulkCrapUninstaller.Controls.Theming
                 default:
                     return pressed ? Color.FromArgb(52, 255, 255, 255) : hot ? ControlFillHot : ControlFill;
             }
+        }
+
+        public static Color BlendOverBackdrop(Color color)
+        {
+            if (color.A == 255)
+                return color;
+
+            return Blend(color, Backdrop);
+        }
+
+        private static Color Blend(Color foreground, Color background)
+        {
+            var alpha = foreground.A;
+            var inverseAlpha = 255 - alpha;
+
+            return Color.FromArgb(
+                (foreground.R * alpha + background.R * inverseAlpha) / 255,
+                (foreground.G * alpha + background.G * inverseAlpha) / 255,
+                (foreground.B * alpha + background.B * inverseAlpha) / 255);
         }
 
         private static bool IsFontInstalled(string fontFamilyName)
