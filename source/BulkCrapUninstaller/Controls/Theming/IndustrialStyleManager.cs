@@ -67,15 +67,25 @@ namespace BulkCrapUninstaller.Controls.Theming
             listView.ForeColor = IndustrialTheme.TextHigh;
             listView.AlternateRowBackColor = IndustrialTheme.RowAlternate;
             listView.SelectedBackColor = IndustrialTheme.RowSelected;
-            listView.SelectedForeColor = IndustrialTheme.TextHigh;
-            listView.UnfocusedSelectedBackColor = Color.FromArgb(34, IndustrialTheme.IndustrialBlue);
-            listView.UnfocusedSelectedForeColor = IndustrialTheme.TextHigh;
+            listView.SelectedForeColor = IndustrialTheme.RowSelectedText;
+            listView.UnfocusedSelectedBackColor = IndustrialTheme.RowSelected;
+            listView.UnfocusedSelectedForeColor = IndustrialTheme.RowSelectedText;
             listView.GridLines = false;
             listView.HeaderUsesThemes = false;
             listView.HeaderFormatStyle = new HeaderFormatStyle();
             listView.HeaderFormatStyle.SetBackColor(IndustrialTheme.GlassElevated);
             listView.HeaderFormatStyle.SetForeColor(IndustrialTheme.TextHigh);
             listView.BorderStyle = BorderStyle.None;
+        }
+
+        private static void ApplyLinkLabel(LinkLabel linkLabel)
+        {
+            linkLabel.BackColor = IndustrialTheme.Backdrop;
+            linkLabel.ForeColor = IndustrialTheme.TextHigh;
+            linkLabel.LinkColor = IndustrialTheme.LinkText;
+            linkLabel.ActiveLinkColor = IndustrialTheme.LinkTextHot;
+            linkLabel.VisitedLinkColor = IndustrialTheme.TextMuted;
+            linkLabel.DisabledLinkColor = IndustrialTheme.TextMuted;
         }
 
         private static void ApplyComponent(Component component)
@@ -113,6 +123,13 @@ namespace BulkCrapUninstaller.Controls.Theming
             if (listView != null)
             {
                 ApplyObjectListView(listView);
+                return;
+            }
+
+            var linkLabel = control as LinkLabel;
+            if (linkLabel != null)
+            {
+                ApplyLinkLabel(linkLabel);
                 return;
             }
 

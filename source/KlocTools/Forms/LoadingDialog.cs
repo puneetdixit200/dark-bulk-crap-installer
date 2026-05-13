@@ -23,6 +23,7 @@ namespace Klocman.Forms
         internal LoadingDialog(string title, Action<LoadingDialogInterface> action)
         {
             InitializeComponent();
+            ApplyIndustrialStyle();
 
             Text = title;
             label1.Text = title;
@@ -46,6 +47,33 @@ namespace Klocman.Forms
                 _controller.CloseDialog();
             })
             { Name = "LoadingDialogThread - " + title };
+        }
+
+        private void ApplyIndustrialStyle()
+        {
+            var backdrop = Color.FromArgb(5, 10, 16);
+            var glassPanel = Color.FromArgb(28, 41, 56);
+            var textHigh = Color.White;
+            var textMuted = Color.FromArgb(153, 248, 249, 255);
+            var safetyOrange = Color.FromArgb(255, 107, 0);
+            var industrialBlue = Color.FromArgb(62, 146, 255);
+
+            BackColor = backdrop;
+            ForeColor = textHigh;
+
+            panel1.BackColor = glassPanel;
+            panel1.ForeColor = textHigh;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+
+            label1.BackColor = glassPanel;
+            label1.ForeColor = textHigh;
+            label2.BackColor = glassPanel;
+            label2.ForeColor = textMuted;
+
+            progressBar.BackColor = Color.FromArgb(22, 32, 44);
+            progressBar.ForeColor = safetyOrange;
+            progressBar2.BackColor = Color.FromArgb(22, 32, 44);
+            progressBar2.ForeColor = industrialBlue;
         }
 
         protected override CreateParams CreateParams

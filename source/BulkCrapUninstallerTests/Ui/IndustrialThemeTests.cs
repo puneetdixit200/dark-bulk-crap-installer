@@ -24,7 +24,8 @@ namespace BulkCrapUninstallerTests.Ui
             Assert.AreEqual(Color.FromArgb(24, 255, 255, 255), IndustrialTheme.ControlFill);
             Assert.AreEqual(Color.FromArgb(40, 255, 255, 255), IndustrialTheme.ControlFillHot);
             Assert.AreEqual(Color.FromArgb(12, 255, 255, 255), IndustrialTheme.RowAlternate);
-            Assert.AreEqual(Color.FromArgb(42, 255, 107, 0), IndustrialTheme.RowSelected);
+            Assert.AreEqual(Color.FromArgb(255, 176, 74), IndustrialTheme.RowSelected);
+            Assert.AreEqual(Color.Black, IndustrialTheme.RowSelectedText);
             Assert.AreEqual(8, IndustrialTheme.CornerRadius);
         }
 
@@ -88,6 +89,36 @@ namespace BulkCrapUninstallerTests.Ui
                 Assert.AreNotEqual(Color.Transparent, button.BackColor);
                 Assert.AreEqual(FlatStyle.Flat, button.FlatStyle);
                 Assert.AreEqual(0, button.FlatAppearance.BorderSize);
+            }
+        }
+
+        [TestMethod]
+        public void ObjectListViewSelectionUsesReadableBlackText()
+        {
+            using (var listView = new BrightIdeasSoftware.ObjectListView())
+            {
+                IndustrialStyleManager.ApplyObjectListView(listView);
+
+                Assert.AreEqual(IndustrialTheme.RowSelected, listView.SelectedBackColor);
+                Assert.AreEqual(Color.Black, listView.SelectedForeColor);
+                Assert.AreEqual(Color.Black, listView.UnfocusedSelectedForeColor);
+            }
+        }
+
+        [TestMethod]
+        public void LinkLabelsReceiveIndustrialReadableColors()
+        {
+            using (var form = new Form())
+            using (var linkLabel = new LinkLabel())
+            {
+                form.Controls.Add(linkLabel);
+
+                IndustrialStyleManager.Apply(form);
+
+                Assert.AreEqual(IndustrialTheme.LinkText, linkLabel.LinkColor);
+                Assert.AreEqual(IndustrialTheme.LinkTextHot, linkLabel.ActiveLinkColor);
+                Assert.AreEqual(IndustrialTheme.TextMuted, linkLabel.VisitedLinkColor);
+                Assert.AreEqual(IndustrialTheme.TextMuted, linkLabel.DisabledLinkColor);
             }
         }
 

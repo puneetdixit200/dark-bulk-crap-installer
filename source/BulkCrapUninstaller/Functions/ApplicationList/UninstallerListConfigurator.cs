@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
+using BulkCrapUninstaller.Controls.Theming;
 using BulkCrapUninstaller.Forms;
 using BulkCrapUninstaller.Functions.Ratings;
 using BulkCrapUninstaller.Properties;
@@ -252,9 +254,16 @@ namespace BulkCrapUninstaller.Functions.ApplicationList
         {
             if (e.Model is not ApplicationUninstallerEntry entry) return;
 
+            if (e.Item.Selected)
+            {
+                e.Item.BackColor = IndustrialTheme.RowSelected;
+                e.Item.ForeColor = IndustrialTheme.RowSelectedText;
+                return;
+            }
+
             var color = ApplicationListConstants.GetApplicationBackColor(entry);
-            if (!color.IsEmpty)
-                e.Item.BackColor = color;
+            e.Item.ForeColor = IndustrialTheme.TextHigh;
+            e.Item.BackColor = color.IsEmpty ? Color.Empty : color;
         }
 
         public void UpdateColumnFiltering(bool anyUninstallers)

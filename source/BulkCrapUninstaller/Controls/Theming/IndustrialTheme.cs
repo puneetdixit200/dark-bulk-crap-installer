@@ -27,10 +27,13 @@ namespace BulkCrapUninstaller.Controls.Theming
         public static readonly Color Critical = Color.FromArgb(255, 77, 77);
         public static readonly Color TextHigh = Color.White;
         public static readonly Color TextMuted = Color.FromArgb(153, 248, 249, 255);
+        public static readonly Color LinkText = Color.FromArgb(124, 187, 255);
+        public static readonly Color LinkTextHot = Color.FromArgb(255, 176, 74);
         public static readonly Color ControlFill = Color.FromArgb(24, 255, 255, 255);
         public static readonly Color ControlFillHot = Color.FromArgb(40, 255, 255, 255);
         public static readonly Color RowAlternate = Color.FromArgb(12, 255, 255, 255);
-        public static readonly Color RowSelected = Color.FromArgb(42, 255, 107, 0);
+        public static readonly Color RowSelected = Color.FromArgb(255, 176, 74);
+        public static readonly Color RowSelectedText = Color.Black;
         public static readonly Color GlassPrimarySolid = BlendOverBackdrop(GlassPrimary);
         public static readonly Color GlassElevatedSolid = BlendOverBackdrop(GlassElevated);
         public static readonly Color ControlFillSolid = BlendOverBackdrop(ControlFill);

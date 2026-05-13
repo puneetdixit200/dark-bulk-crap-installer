@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace Klocman.Forms
@@ -17,7 +18,7 @@ namespace Klocman.Forms
         public OverlaySplashScreen(Form owner, Image shownImage) : this()
         {
             _owner = owner;
-            startupSplashPictureBox.Image = shownImage;
+            startupSplashPictureBox.Image = CreateIndustrialSplashImage(shownImage);
             Icon = _owner.Icon;
 
             Location = _owner.PointToScreen(Point.Empty);
@@ -31,6 +32,7 @@ namespace Klocman.Forms
         private OverlaySplashScreen()
         {
             InitializeComponent();
+            ApplyIndustrialStyle();
         }
 
         /// <summary>
@@ -84,6 +86,37 @@ namespace Klocman.Forms
             {
                 Opacity = op;
             }
+        }
+
+        private void ApplyIndustrialStyle()
+        {
+            var backdrop = Color.FromArgb(5, 10, 16);
+            BackColor = backdrop;
+            startupSplashPictureBox.BackColor = backdrop;
+        }
+
+        private static Image CreateIndustrialSplashImage(Image source)
+        {
+            if (source == null)
+                return null;
+
+            var result = new Bitmap(source.Width, source.Height, PixelFormat.Format32bppArgb);
+
+            using (var sourceBitmap = new Bitmap(source))
+            {
+                for (var x = 0; x < source.Width; x++)
+                {
+                    for (var y = 0; y < source.Height; y++)
+                    {
+                        var color = sourceBitmap.GetPixel(x, y);
+                        var brightness = (color.R + color.G + color.B) / 3;
+                        var alpha = brightness > 245 ? 0 : Math.Min(color.A, 255 - brightness);
+                        result.SetPixel(x, y, Color.FromArgb(alpha, 234, 242, 255));
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
